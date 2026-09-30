@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DIABLO - CHARO JSK OFFICIAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#a855f7">
+<style>
+:root{--bg:#08080c;--card:#17171f;--p:#a855f7;--p2:#ff1744}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif;-webkit-tap-highlight-color:transparent}
+html{overflow-x:hidden;touch-action:pan-y}
+body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;position:relative;width:100%}
+.cover{height:250px;position:relative;background:radial-gradient(ellipse at top,#a855f7 0%, #1a0a2e 40%, #08080c 80%), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=900');background-blend-mode:overlay;background-size:cover;background-position:center;border-radius:0 0 36px 36px;overflow:hidden;width:100%}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 12%, transparent 65%)}
+.install{position:absolute;top:18px;right:18px;z-index:10;background:#ffffff1a;backdrop-filter:blur(12px);border:1px solid #ffffff25;padding:10px 18px;border-radius:22px;color:#fff;font-size:12px;font-weight:800;letter-spacing:0.5px;cursor:pointer;box-shadow:0 4px 20px #0005}
+.cover-content{position:absolute;bottom:18px;left:20px;right:20px;z-index:2;display:flex;align-items:flex-end;gap:15px}
+.avatar{width:88px;height:88px;border-radius:24px;border:3px solid #fff;background:#000;object-fit:cover;box-shadow:0 12px 30px #000, 0 0 20px #a855f799}
+.cover-text h1{font-size:30px;font-weight:800;letter-spacing:1px}
+.cover-text h1 span{color:var(--p2);text-shadow:0 0 15px var(--p2)}
+.cover-text p{font-size:11px;letter-spacing:2px;opacity:.8;background:#ffffff14;padding:6px 14px;border-radius:20px;margin-top:6px;display:inline-block;backdrop-filter:blur(10px);border:1px solid #ffffff15}
+.search{padding:18px 20px;width:100%}
+.search input{width:100%;background:var(--card);border:1px solid #ffffff10;padding:15px 20px;border-radius:18px;color:#fff;outline:none;font-size:14px}
+.grid{padding:0 20px;display:grid;gap:14px;width:100%}
+.card{background:var(--card);border-radius:20px;padding:14px;display:flex;gap:12px;align-items:flex-start;border:1px solid #ffffff08;animation:pop.4s ease;width:100%;overflow:hidden}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.thumb{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.info{flex:1;overflow:hidden;min-width:0}
+.info h3{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info small{color:#888;font-size:11px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* VIDEO FIX */
+.video-wrap{width:100%;margin-top:10px;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative}
+.video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.audio-wrap{width:100%;margin-top:8px}
+.audio-wrap audio{width:100%;height:38px;border-radius:10px}
+.btn-down{width:42px;height:42px;border-radius:12px;background:#ffffff12;border:none;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0}
+.bottom{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:92%;max-width:400px;background:rgba(26,26,36,0.92);backdrop-filter:blur(20px);border:1px solid #ffffff15;border-radius:30px;display:flex;justify-content:space-around;align-items:center;padding:12px 10px;z-index:100}
+.nav-item{flex:1;background:none;border:none;color:#666;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.nav-item.active{color:#fff}.nav-item i{font-size:22px;font-style:normal}
+.plus{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:4px solid var(--bg);font-size:34px;color:#fff;margin-top:-36px;box-shadow:0 10px 30px #a855f7a0;cursor:pointer}
+.modal{position:fixed;inset:0;background:#000000d5;backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modal.show{display:flex}
+.box{background:#1e1e2a;width:100%;max-width:360px;border-radius:28px;padding:28px;border:1px solid #ffffff12;position:relative}
+.box h2{text-align:center;margin-bottom:8px}.box p.sub{text-align:center;color:#888;font-size:12px;margin-bottom:18px}
+.box input,.box select{width:100%;background:#0a0a0f;border:1px solid #ffffff12;padding:14px;border-radius:14px;color:#fff;margin-bottom:12px;outline:none}
+.box button.main{width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:#ffffff12;border:none;color:#fff;font-size:20px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="cover" id="coverDiv">
+  <button id="installBtn" class="install" onclick="downloadApp()">📲 Télécharger l'App</button>
+  <div class="cover-content">
+    <img class="avatar" id="avatarImg" src="charo.jpg" alt="DIABLO">
+    <div class="cover-text"><h1>DIABLO <span>JSK</span></h1><p>CHARO JSK • OFFICIAL</p></div>
+  </div>
+</div>
+
+<div class="search"><input id="search" placeholder="Rechercher un son, une vidéo..." oninput="render()"></div>
+<div id="list" class="grid"></div>
+
+<div class="bottom">
+  <button class="nav-item active" id="b-audio" onclick="setTab('audio')"><i>🎵</i>AUDIO</button>
+  <button class="plus" onclick="openPass()">+</button>
+  <button class="nav-item" id="b-video" onclick="setTab('video')"><i>🎬</i>VIDEO</button>
+</div>
+
+<div class="modal" id="passModal">
+  <div class="box">
+    <button class="close" onclick="closeAll()">×</button>
+    <h2>Accès Créateur 🔒</h2>
+    <p class="sub">Entrez le mot de passe secret</p>
+    <input type="password" id="passInput" placeholder="Mot de passe">
+    <button class="main" onclick="checkPass()">Déverrouiller</button>
+    <p id="err" style="display:none;color:#ff4d4d;text-align:center;margin-top:12px;font-size:13px">❌ Mot de passe incorrect</p>
+  </div>
+</div>
+
+<div class="modal" id="pubModal">
+  <div class="box">
+    <button class="close" onclick="closeAll()">×</button>
+    <h2>Publier 🚀</h2>
+    <p class="sub">Audio ou Vidéo - DIABLO MODE</p>
+    <input id="titre" placeholder="Titre ex: DIABLO - Amour Noir">
+    <select id="type"><option value="audio">🎵 AUDIO</option><option value="video">🎬 VIDÉO</option></select>
+    <input type="file" id="file" accept="audio/*,video/*">
+    <button class="main" onclick="publier()">Publier Maintenant</button>
+  </div>
+</div>
+
+<script>
+const PASSWORD = "Diablo";
+let tab='audio';
+let datas = JSON.parse(localStorage.getItem('diablo_final_v5')||'[]');
+
+function setTab(t){tab=t;document.getElementById('b-audio').classList.toggle('active',t=='audio');document.getElementById('b-video').classList.toggle('active',t=='video');render();}
+function openPass(){document.getElementById('passModal').classList.add('show');setTimeout(()=>document.getElementById('passInput').focus(),100);}
+function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));}
+
+function checkPass(){
+  let v=document.getElementById('passInput').value.trim();
+  if(v===PASSWORD){closeAll();setTimeout(()=>document.getElementById('pubModal').classList.add('show'),200);document.getElementById('err').style.display='none';document.getElementById('passInput').value='';}
+  else{document.getElementById('err').style.display='block';}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('passModal').classList.contains('show'))checkPass();});
+
+function publier(){
+  let tit=document.getElementById('titre').value.trim();
+  let typ=document.getElementById('type').value;
+  let f=document.getElementById('file').files[0];
+  if(!tit||!f) return alert('Titre + fichier obligatoire bro');
+  let url=URL.createObjectURL(f);
+  datas.unshift({id:Date.now(),tit,typ,url,name:f.name});
+  localStorage.setItem('diablo_final_v5',JSON.stringify(datas));
+  document.getElementById('titre').value='';document.getElementById('file').value='';
+  closeAll();setTab(typ);
+}
+
+function render(){
+  let q=document.getElementById('search').value.toLowerCase();
+  let fil=datas.filter(d=>d.typ===tab && d.tit.toLowerCase().includes(q));
+  let el=document.getElementById('list');
+  if(!fil.length){
+    el.innerHTML=`<div style="text-align:center;padding:70px 20px;color:#555"><div style="font-size:56px">🎧</div><div style="margin-top:10px">Aucun ${tab} pour le moment</div><small style="color:#444">Clique sur + et tape Diablo</small></div>`;
+    return;
+  }
+  el.innerHTML=fil.map(d=>`
+    <div class="card">
+      <div class="thumb">${d.typ==='audio'?'🎵':'🎬'}</div>
+      <div class="info">
+        <h3>${d.tit}</h3>
+        <small>${d.name}</small>
+        ${d.typ==='audio'?
+          `<div class="audio-wrap"><audio controls src="${d.url}" preload="metadata"></audio></div>` :
+          `<div class="video-wrap"><video controls src="${d.url}" preload="metadata" playsinline></video></div>`
+        }
+      </div>
+      <a class="btn-down" href="${d.url}" download="${d.tit}">⬇️</a>
+    </div>`).join('');
+}
+render();
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').innerHTML = "📲 Installer l'App";
+  document.getElementById('installBtn').style.background = "linear-gradient(135deg,#a855f7,#ff1744)";
+});
+async function downloadApp(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    let { outcome } = await deferredPrompt.userChoice;
+    if(outcome === 'accepted'){document.getElementById('installBtn').innerHTML = "✅ Installée";}
+    deferredPrompt = null;
+  } else {
+    let htmlContent = document.documentElement.outerHTML;
+    let blob = new Blob([htmlContent], {type: 'text/html'});
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url; a.download = "DIABLO-JSK-App.html"; a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+// Bloque le double-tap zoom iOS
+let lastTouchEnd=0;
+document.addEventListener('touchend',e=>{let now=Date.now();if(now-lastTouchEnd<=300){e.preventDefault();}lastTouchEnd=now;},{passive:false});
+</script>
+</body>
+</html>
