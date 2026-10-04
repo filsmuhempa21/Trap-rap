@@ -8,13 +8,13 @@
   "theme_color": "#a855f7",
   "icons": [
     {
-      "src": "./Charo.png",
+      "src": "./charo.jpg",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./Charo.png",
+      "src": "./charo.jpg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
