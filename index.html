@@ -78,9 +78,9 @@ async function publier(){
   document.getElementById('loading').style.display='block';document.getElementById('pubBtn').disabled=true;
   try{
     let fileName=Date.now()+"_"+f.name.replace(/[^a-zA-Z0-9.\-_]/g,'_');
-    let {error:upErr}=await supabaseClient.storage.from('medias').upload(fileName,f);
+    let {error:upErr}=await supabaseClient.storage.from('media').upload(fileName,f);
     if(upErr)throw upErr;
-    let {data:urlData}=supabaseClient.storage.from('medias').getPublicUrl(fileName);
+    let {data:urlData}=supabaseClient.storage.from('media').getPublicUrl(fileName);
     let {error:dbErr}=await supabaseClient.from('musics').insert({titre:tit,type:typ,url:urlData.publicUrl,name:f.name});
     if(dbErr)throw dbErr;
     document.getElementById('titre').value='';document.getElementById('file').value='';
