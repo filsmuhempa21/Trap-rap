@@ -33,10 +33,12 @@ body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;widt
 .nav-item{flex:1;background:none;border:none;color:#666;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.nav-item.active{color:#fff}
 .plus{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:4px solid var(--bg);font-size:34px;color:#fff;margin-top:-36px;box-shadow:0 10px 30px #a855f7a0;cursor:pointer}
 .modal{position:fixed;inset:0;background:#000000d5;backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}.modal.show{display:flex}
-.box{background:#1e1e2a;width:100%;max-width:360px;border-radius:28px;padding:28px;border:1px solid #ffffff12;position:relative}
+.box{background:#1e1e2a;width:100%;max-width:400px;border-radius:28px;padding:28px;border:1px solid #ffffff12;position:relative; max-height:90vh; overflow-y:auto}
 .box input,.box select{width:100%;background:#0a0a0f;border:1px solid #ffffff12;padding:14px;border-radius:14px;color:#fff;margin-bottom:12px;outline:none}
 .box button.main{width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-weight:700;cursor:pointer}
 .close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:#ffffff12;border:none;color:#fff;font-size:20px;cursor:pointer}
+.creator-item{background:#0a0a0f;border:1px solid #ffffff10;border-radius:16px;padding:12px;margin-bottom:12px}
+.del-btn{width:100%;margin-top:8px;background:#ff1744;border:none;padding:10px;border-radius:10px;color:#fff;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
@@ -54,8 +56,24 @@ body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;widt
   <button class="plus" onclick="openPass()">+</button>
   <button class="nav-item" id="b-video" onclick="setTab('video')">🎬 VIDEO</button>
 </div>
+
 <div class="modal" id="passModal"><div class="box"><button class="close" onclick="closeAll()">×</button><h2 style="text-align:center">Accès 🔒</h2><p style="text-align:center;color:#888;font-size:12px;margin-bottom:12px">Mot de passe: Diablo</p><input type="password" id="passInput" placeholder="Mot de passe"><button class="main" onclick="checkPass()">Entrer</button><p id="err" style="display:none;color:#ff4d4d;text-align:center;margin-top:10px">Faux code</p></div></div>
-<div class="modal" id="pubModal"><div class="box"><button class="close" onclick="closeAll()">×</button><h2 style="text-align:center">Publier 🚀</h2><input id="titre" placeholder="Titre ex: DIABLO - Amour Noir"><select id="type"><option value="audio">🎵 AUDIO</option><option value="video">🎬 VIDEO</option></select><input type="file" id="file" accept="audio/*,video/*"><button class="main" id="pubBtn" onclick="publier()">Publier sur Supabase</button><p id="loading" style="display:none;text-align:center;color:#a855f7;margin-top:12px">Upload en cours...</p></div></div>
+
+<div class="modal" id="pubModal"><div class="box" style="max-width:420px"><button class="close" onclick="closeAll()">×</button>
+<h2 style="text-align:center">Creator Studio 🚀</h2>
+
+<input id="titre" placeholder="Titre ex: DIABLO - Amour Noir">
+<select id="type"><option value="audio">🎵 AUDIO</option><option value="video">🎬 VIDEO</option></select>
+<input type="file" id="file" accept="audio/*,video/*">
+<button class="main" id="pubBtn" onclick="publier()">Publier sur Supabase</button>
+<p id="loading" style="display:none;text-align:center;color:#a855f7;margin-top:12px">Upload en cours...</p>
+
+<hr style="margin:20px 0;border:none;border-top:1px solid #ffffff15">
+
+<h3 style="font-size:14px;margin-bottom:12px">📂 Tous mes médias (avec suppression)</h3>
+<div id="creator-list">Chargement...</div>
+
+</div></div>
 
 <script>
 const SUPABASE_URL = "https://ooitwgbvscipunaszoml.supabase.co";
@@ -65,11 +83,11 @@ const PASSWORD="Diablo";let tab='audio';let allData=[];
 function setTab(t){tab=t;document.getElementById('b-audio').classList.toggle('active',t=='audio');document.getElementById('b-video').classList.toggle('active',t=='video');render();}
 function openPass(){document.getElementById('passModal').classList.add('show');}
 function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));}
-function checkPass(){if(document.getElementById('passInput').value.trim()===PASSWORD){closeAll();setTimeout(()=>document.getElementById('pubModal').classList.add('show'),200);document.getElementById('passInput').value='';document.getElementById('err').style.display='none';}else{document.getElementById('err').style.display='block';}}
+function checkPass(){if(document.getElementById('passInput').value.trim()===PASSWORD){closeAll();setTimeout(()=>{document.getElementById('pubModal').classList.add('show'); loadCreatorMedia();},200);document.getElementById('passInput').value='';document.getElementById('err').style.display='none';}else{document.getElementById('err').style.display='block';}}
 
 async function fetchData(){
   const {data,error}=await supabaseClient.from('musics').select('*').order('created_at',{ascending:false});
-  if(error){document.getElementById('list').innerHTML=`<div style="text-align:center;padding:40px;color:#ff5a5a">Erreur: ${error.message}<br><br>Vérifie que tu as créé la table musics et le bucket medias en Public</div>`;return;}
+  if(error){document.getElementById('list').innerHTML=`<div style="text-align:center;padding:40px;color:#ff5a5a">Erreur: ${error.message}</div>`;return;}
   allData=data||[];render();
 }
 async function publier(){
@@ -84,10 +102,45 @@ async function publier(){
     let {error:dbErr}=await supabaseClient.from('musics').insert({titre:tit,type:typ,url:urlData.publicUrl,name:f.name});
     if(dbErr)throw dbErr;
     document.getElementById('titre').value='';document.getElementById('file').value='';
-    closeAll();await fetchData();setTab(typ);
-  }catch(e){alert("Erreur: "+e.message+"\n\nVérifie que le bucket medias est en PUBLIC");}
+    await fetchData(); await loadCreatorMedia(); setTab(typ);
+    alert('Publié !');
+  }catch(e){alert("Erreur: "+e.message);}
   document.getElementById('loading').style.display='none';document.getElementById('pubBtn').disabled=false;
 }
+
+// --- NOUVEAU : LISTE CREATOR AVEC SUPPRIMER ---
+async function loadCreatorMedia(){
+  const listDiv=document.getElementById('creator-list');
+  listDiv.innerHTML='Chargement...';
+  const {data,error}=await supabaseClient.from('musics').select('*').order('created_at',{ascending:false});
+  if(error){listDiv.innerHTML='Erreur: '+error.message; return;}
+  if(!data.length){listDiv.innerHTML='<small style="color:#666">Aucun média</small>'; return;}
+  listDiv.innerHTML=data.map(d=>`
+    <div class="creator-item">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">${d.titre}</b><small style="color:#888">${d.type}</small></div>
+      <small style="color:#555;font-size:10px;word-break:break-all">${d.url}</small>
+      ${d.type==='audio'?`<audio controls src="${d.url}" style="width:100%;margin-top:6px;height:32px"></audio>`:`<video controls src="${d.url}" style="width:100%;margin-top:6px;border-radius:8px;max-height:140px"></video>`}
+      <button class="del-btn" onclick="deleteMedia('${d.id}','${d.url}')">🗑️ SUPPRIMER</button>
+    </div>
+  `).join('');
+}
+
+async function deleteMedia(id, url){
+  if(!confirm('Vraiment supprimer ce média ?')) return;
+  try{
+    // 1. Extraire le nom du fichier depuis l'URL
+    let fileName = url.split('/').pop().split('?')[0];
+    // 2. Supprimer du Storage
+    await supabaseClient.storage.from('media').remove([fileName]);
+    // 3. Supprimer de la table musics
+    let {error}=await supabaseClient.from('musics').delete().eq('id', id);
+    if(error) throw error;
+    alert('Supprimé avec succès');
+    await loadCreatorMedia();
+    await fetchData();
+  }catch(e){ alert('Erreur suppression: '+e.message); }
+}
+
 function render(){
   let q=document.getElementById('search').value.toLowerCase();
   let fil=allData.filter(d=>d.type===tab&&d.titre.toLowerCase().includes(q));
@@ -95,9 +148,8 @@ function render(){
   if(!fil.length){el.innerHTML=`<div style="text-align:center;padding:70px 20px;color:#555"><div style="font-size:56px">🎧</div><div style="margin-top:10px">Aucun ${tab}</div><small>Clique + et tape Diablo pour publier</small></div>`;return;}
   el.innerHTML=fil.map(d=>`<div class="card"><div class="thumb">${d.type==='audio'?'🎵':'🎬'}</div><div class="info"><h3>${d.titre}</h3><small>${d.name||''}</small>${d.type==='audio'?`<div class="audio-wrap"><audio controls src="${d.url}" preload="metadata"></audio></div>`:`<div class="video-wrap"><video controls src="${d.url}" preload="metadata" playsinline></video></div>`}</div><a class="btn-down" href="${d.url}" target="_blank">⬇️</a></div>`).join('');
 }
-let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').innerText="📲 Installer l'App";document.getElementById('installBtn').style.background="linear-gradient(135deg,#a855f7,#ff1744)";});
-function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Héberge d'abord le site, puis va sur pwabuilder.com pour générer l'APK");}}
-let lastTouch=0;document.addEventListener('touchend',e=>{let n=Date.now();if(n-lastTouch<=300)e.preventDefault();lastTouch=n;},{passive:false});
+let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
+function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Installe depuis le navigateur");}}
 fetchData();
 </script>
 </body>
