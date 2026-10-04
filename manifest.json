@@ -1,9 +1,25 @@
 {
-  "name": "DIABLO JSK OFFICIAL",
+  "name": "DIABLO JSK - CHARO OFFICIAL",
   "short_name": "DIABLO JSK",
-  "start_url": ".",
+  "description": "Ecoute et télécharge tous les audios et vidéos officiels de DIABLO JSK - CHARO. App officielle.",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#08080c",
   "theme_color": "#a855f7",
-  "icons": [{"src": "charo.jpg", "sizes": "512x512", "type": "image/jpeg"}]
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "charo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "charo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
 }
