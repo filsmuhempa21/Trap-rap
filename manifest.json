@@ -1,13 +1,15 @@
 {
-  "name": "DIABLO JSK - CHARO OFFICIAL",
-  "short_name": "DIABLO JSK",
-  "description": "Site officiel de DIABLO JSK - Musique Charo, clips et actualités.",
-  "start_url": "./",
+  "name": "LubumBuy - Lubumbashi",
+  "short_name": "LubumBuy",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#FFD700",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
   "icons": [
-    { "src": "./charo-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./charo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
