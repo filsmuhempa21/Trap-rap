@@ -152,5 +152,8 @@ let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDe
 function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Installe depuis le navigateur");}}
 fetchData();
 </script>
+  <script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}
+</script>
 </body>
 </html>
