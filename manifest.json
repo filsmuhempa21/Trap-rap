@@ -8,14 +8,18 @@
   "theme_color": "#0CA345",
   "icons": [
     {
-      "src": "./jsk-music-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "charo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "./jsk-music-512.png",
-      "sizes": "192x192",
+      "src": "charo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "charo-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
