@@ -11,24 +11,30 @@
 <style>
 :root{--bg:#08080c;--card:#17171f;--p:#a855f7;--p2:#ff1744}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif;-webkit-tap-highlight-color:transparent}
-html{overflow-x:hidden;touch-action:pan-y}
-body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;width:100%}
+html{overflow-x:hidden;width:100%}
+body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;width:100%;max-width:100vw}
 .cover{height:250px;position:relative;background:radial-gradient(ellipse at top,#a855f7 0%, #1a0a2e 40%, #08080c 80%);border-radius:0 0 36px 36px;overflow:hidden;width:100%}
 .cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 15%, transparent 60%)}
 .install{position:absolute;top:18px;right:18px;z-index:10;background:#ffffff1a;backdrop-filter:blur(12px);border:1px solid #ffffff25;padding:10px 18px;border-radius:22px;color:#fff;font-size:12px;font-weight:800;cursor:pointer}
 .cover-content{position:absolute;bottom:18px;left:20px;right:20px;z-index:2;display:flex;align-items:flex-end;gap:15px}
 .avatar{width:88px;height:88px;border-radius:24px;border:3px solid #fff;background:#000;object-fit:cover;box-shadow:0 12px 30px #000, 0 0 20px #a855f799}
-.cover-text h1{font-size:30px;font-weight:800} .cover-text h1 span{color:var(--p2)}
+.cover-text h1{font-size:30px;font-weight:800}.cover-text h1 span{color:var(--p2)}
 .cover-text p{font-size:11px;letter-spacing:2px;opacity:.8;background:#ffffff14;padding:6px 14px;border-radius:20px;margin-top:6px;display:inline-block}
-.search{padding:18px 20px;width:100%}.search input{width:100%;background:var(--card);border:1px solid #ffffff10;padding:15px 20px;border-radius:18px;color:#fff;outline:none}
-.grid{padding:0 20px;display:grid;gap:14px;width:100%}
-.card{background:var(--card);border-radius:20px;padding:14px;display:flex;gap:12px;align-items:flex-start;border:1px solid #ffffff08;width:100%;overflow:hidden}
-.thumb{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.info{flex:1;min-width:0;overflow:hidden}.info h3{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.info small{color:#888;font-size:11px}
-.video-wrap{width:100%;margin-top:10px;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative}
+.search{padding:18px 20px;width:100%;max-width:100vw}.search input{width:100%;background:var(--card);border:1px solid #ffffff10;padding:15px 20px;border-radius:18px;color:#fff;outline:none}
+.grid{padding:0 16px;display:flex;flex-direction:column;gap:14px;width:100%;max-width:100vw}
+.card{background:var(--card);border-radius:20px;padding:14px;display:flex;gap:12px;align-items:center;border:1px solid #ffffff08;width:100%;max-width:100%;overflow:hidden;position:relative}
+.thumb{width:56px;height:56px;min-width:56px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.info{flex:1;min-width:0;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+.info h3{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.info small{color:#888;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.progress-container{width:100%;height:4px;background:#ffffff15;border-radius:10px;overflow:hidden;margin-top:6px;cursor:pointer}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--p),var(--p2));transition:width 0.1s linear}
+.time-row{display:flex;justify-content:space-between;font-size:9px;color:#666;margin-top:3px}
+.audio-wrap{width:100%;margin-top:2px}
+.audio-wrap audio{width:100%;height:32px;display:block}
+.video-wrap{width:100%;margin-top:8px;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative}
 .video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
-.audio-wrap{width:100%;margin-top:8px}.audio-wrap audio{width:100%;height:38px}
-.btn-down{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;flex-shrink:0}
+.btn-down{width:42px;height:42px;min-width:42px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--p2));display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;flex-shrink:0;position:relative;z-index:2}
 .bottom{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:92%;max-width:400px;background:rgba(26,26,36,0.92);backdrop-filter:blur(20px);border:1px solid #ffffff15;border-radius:30px;display:flex;justify-content:space-around;align-items:center;padding:12px 10px;z-index:100}
 .nav-item{flex:1;background:none;border:none;color:#666;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.nav-item.active{color:#fff}
 .plus{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));border:4px solid var(--bg);font-size:34px;color:#fff;margin-top:-36px;box-shadow:0 10px 30px #a855f7a0;cursor:pointer}
@@ -45,7 +51,7 @@ body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;widt
 <div class="cover">
   <button id="installBtn" class="install" onclick="installApp()">📲 Télécharger l'App</button>
   <div class="cover-content">
-    <img class="avatar" src="charo-192.png" alt="DIABLO">
+    <img class="avatar" src="jsk-music-192.png" alt="DIABLO">
     <div class="cover-text"><h1>jiska <span>JSK</span></h1><p>CHARO JSK • OFFICIAL</p></div>
   </div>
 </div>
@@ -61,25 +67,22 @@ body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;widt
 
 <div class="modal" id="pubModal"><div class="box" style="max-width:420px"><button class="close" onclick="closeAll()">×</button>
 <h2 style="text-align:center">Creator Studio 🚀</h2>
-
 <input id="titre" placeholder="Titre ex: DIABLO - Amour Noir">
 <select id="type"><option value="audio">🎵 AUDIO</option><option value="video">🎬 VIDEO</option></select>
 <input type="file" id="file" accept="audio/*,video/*">
 <button class="main" id="pubBtn" onclick="publier()">Publier sur Supabase</button>
 <p id="loading" style="display:none;text-align:center;color:#a855f7;margin-top:12px">Upload en cours...</p>
-
 <hr style="margin:20px 0;border:none;border-top:1px solid #ffffff15">
-
-<h3 style="font-size:14px;margin-bottom:12px">📂 Tous mes médias (avec suppression)</h3>
+<h3 style="font-size:14px;margin-bottom:12px">📂 Tous mes médias</h3>
 <div id="creator-list">Chargement...</div>
-
 </div></div>
 
 <script>
 const SUPABASE_URL = "https://ooitwgbvscipunaszoml.supabase.co";
 const SUPABASE_KEY = "sb_publishable_HmpP9zKKCRJLtd_X2taQbg_MTt81Qsn";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const PASSWORD="Diablo";let tab='audio';let allData=[];
+const PASSWORD="Diablo";let tab='audio';let allData=[];let currentAudio=null;
+
 function setTab(t){tab=t;document.getElementById('b-audio').classList.toggle('active',t=='audio');document.getElementById('b-video').classList.toggle('active',t=='video');render();}
 function openPass(){document.getElementById('passModal').classList.add('show');}
 function closeAll(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));}
@@ -103,12 +106,11 @@ async function publier(){
     if(dbErr)throw dbErr;
     document.getElementById('titre').value='';document.getElementById('file').value='';
     await fetchData(); await loadCreatorMedia(); setTab(typ);
-    alert('Publié !');
+    alert('Publié!');
   }catch(e){alert("Erreur: "+e.message);}
   document.getElementById('loading').style.display='none';document.getElementById('pubBtn').disabled=false;
 }
 
-// --- NOUVEAU : LISTE CREATOR AVEC SUPPRIMER ---
 async function loadCreatorMedia(){
   const listDiv=document.getElementById('creator-list');
   listDiv.innerHTML='Chargement...';
@@ -118,42 +120,92 @@ async function loadCreatorMedia(){
   listDiv.innerHTML=data.map(d=>`
     <div class="creator-item">
       <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:13px">${d.titre}</b><small style="color:#888">${d.type}</small></div>
-      <small style="color:#555;font-size:10px;word-break:break-all">${d.url}</small>
-      ${d.type==='audio'?`<audio controls src="${d.url}" style="width:100%;margin-top:6px;height:32px"></audio>`:`<video controls src="${d.url}" style="width:100%;margin-top:6px;border-radius:8px;max-height:140px"></video>`}
       <button class="del-btn" onclick="deleteMedia('${d.id}','${d.url}')">🗑️ SUPPRIMER</button>
     </div>
   `).join('');
 }
 
 async function deleteMedia(id, url){
-  if(!confirm('Vraiment supprimer ce média ?')) return;
+  if(!confirm('Vraiment supprimer?')) return;
   try{
-    // 1. Extraire le nom du fichier depuis l'URL
     let fileName = url.split('/').pop().split('?')[0];
-    // 2. Supprimer du Storage
     await supabaseClient.storage.from('media').remove([fileName]);
-    // 3. Supprimer de la table musics
     let {error}=await supabaseClient.from('musics').delete().eq('id', id);
     if(error) throw error;
-    alert('Supprimé avec succès');
-    await loadCreatorMedia();
-    await fetchData();
-  }catch(e){ alert('Erreur suppression: '+e.message); }
+    alert('Supprimé');
+    await loadCreatorMedia(); await fetchData();
+  }catch(e){ alert('Erreur: '+e.message); }
 }
+
+function formatTime(s){if(isNaN(s)) return "0:00"; let m=Math.floor(s/60); let sec=Math.floor(s%60).toString().padStart(2,'0'); return m+":"+sec; }
 
 function render(){
   let q=document.getElementById('search').value.toLowerCase();
   let fil=allData.filter(d=>d.type===tab&&d.titre.toLowerCase().includes(q));
   let el=document.getElementById('list');
-  if(!fil.length){el.innerHTML=`<div style="text-align:center;padding:70px 20px;color:#555"><div style="font-size:56px">🎧</div><div style="margin-top:10px">Aucun ${tab}</div><small>Clique + et tape Diablo pour publier</small></div>`;return;}
-  el.innerHTML=fil.map(d=>`<div class="card"><div class="thumb">${d.type==='audio'?'🎵':'🎬'}</div><div class="info"><h3>${d.titre}</h3><small>${d.name||''}</small>${d.type==='audio'?`<div class="audio-wrap"><audio controls src="${d.url}" preload="metadata"></audio></div>`:`<div class="video-wrap"><video controls src="${d.url}" preload="metadata" playsinline></video></div>`}</div><a class="btn-down" href="${d.url}" target="_blank">⬇️</a></div>`).join('');
+  if(!fil.length){el.innerHTML=`<div style="text-align:center;padding:70px 20px;color:#555"><div style="font-size:56px">🎧</div><div style="margin-top:10px">Aucun ${tab}</div><small>Clique + et tape Diablo</small></div>`;return;}
+
+  el.innerHTML=fil.map((d,i)=>`
+  <div class="card">
+    <div class="thumb">${d.type==='audio'?'🎵':'🎬'}</div>
+    <div class="info">
+      <h3>${d.titre}</h3>
+      <small>${d.name||''}</small>
+      ${d.type==='audio'?`
+        <div class="progress-container" onclick="seekAudio(this,${i})"><div class="progress-bar" id="bar-${i}"></div></div>
+        <div class="time-row"><span id="cur-${i}">0:00</span><span id="dur-${i}">0:00</span></div>
+        <div class="audio-wrap"><audio id="aud-${i}" src="${d.url}" preload="metadata" controls style="width:100%;height:32px"></audio></div>
+      `:`
+        <div class="video-wrap"><video id="vid-${i}" src="${d.url}" preload="metadata" controls playsinline></video></div>
+      `}
+    </div>
+    <a class="btn-down" href="${d.url}" download="${d.titre}" target="_blank">⬇️</a>
+  </div>`).join('');
+
+  // Gestion audio unique + barre de progression
+  setTimeout(()=>{
+    document.querySelectorAll('audio,video').forEach(media=>{
+      media.addEventListener('play',()=>{
+        // Stop tous les autres
+        document.querySelectorAll('audio,video').forEach(other=>{
+          if(other!==media){ other.pause(); }
+        });
+        currentAudio=media;
+      });
+      if(media.tagName==='AUDIO'){
+        let idx=media.id.split('-')[1];
+        let bar=document.getElementById(`bar-${idx}`);
+        let cur=document.getElementById(`cur-${idx}`);
+        let dur=document.getElementById(`dur-${idx}`);
+        media.addEventListener('timeupdate',()=>{
+          if(media.duration){
+            let pct=(media.currentTime/media.duration)*100;
+            if(bar) bar.style.width=pct+"%";
+            if(cur) cur.textContent=formatTime(media.currentTime);
+            if(dur) dur.textContent=formatTime(media.duration);
+          }
+        });
+        media.addEventListener('loadedmetadata',()=>{
+          if(dur) dur.textContent=formatTime(media.duration);
+        });
+      }
+    });
+  },100);
 }
+
+function seekAudio(container, idx){
+  let audio=document.getElementById(`aud-${idx}`);
+  if(!audio||!audio.duration) return;
+  let rect=container.getBoundingClientRect();
+  let x=event.clientX-rect.left;
+  let pct=x/rect.width;
+  audio.currentTime=pct*audio.duration;
+}
+
 let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
-function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Installe depuis le navigateur");}}
+function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Installe depuis le menu du navigateur > Ajouter à l'écran d'accueil");}}
 fetchData();
 </script>
-  <script>
-if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}
-</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}</script>
 </body>
 </html>
