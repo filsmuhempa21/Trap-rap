@@ -2,7 +2,7 @@
   "name": "JSK Music",
   "short_name": "JSK Music",
   "description": "App de musique Trap Rap - JSK Music",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0CA345",
   "theme_color": "#0CA345",
