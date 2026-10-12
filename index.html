@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Google tag (gtag.js) - DIABLO JSK -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-L77E9L8T8T"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -14,6 +13,8 @@
 <title>DIABLO - CHARO JSK OFFICIAL</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#a855f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="charo-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -23,7 +24,8 @@ html{overflow-x:hidden;touch-action:pan-y}
 body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;width:100%}
 .cover{height:250px;position:relative;background:radial-gradient(ellipse at top,#a855f7 0%, #1a0a2e 40%, #08080c 80%);border-radius:0 0 36px 36px;overflow:hidden;width:100%}
 .cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 15%, transparent 60%)}
-.install{position:absolute;top:18px;right:18px;z-index:10;background:#ffffff1a;backdrop-filter:blur(12px);border:1px solid #ffffff25;padding:10px 18px;border-radius:22px;color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+.install{position:absolute;top:18px;right:18px;z-index:10;background:#a855f7;backdrop-filter:blur(12px);border:none;padding:10px 18px;border-radius:22px;color:#fff;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 4px 15px #a855f780;display:none}
+.install.show{display:block}
 .cover-content{position:absolute;bottom:18px;left:20px;right:20px;z-index:2;display:flex;align-items:flex-end;gap:15px}
 .avatar{width:88px;height:88px;border-radius:24px;border:3px solid #fff;background:#000;object-fit:cover;box-shadow:0 12px 30px #000, 0 0 20px #a855f799}
 .cover-text h1{font-size:30px;font-weight:800} .cover-text h1 span{color:var(--p2)}
@@ -62,7 +64,7 @@ body{background:var(--bg);color:#fff;padding-bottom:125px;overflow-x:hidden;widt
 </head>
 <body>
 <div class="cover">
-  <button id="installBtn" class="install" onclick="installApp()">📲 Télécharger l'App</button>
+  <button id="installBtn" class="install" onclick="installApp()">📲 Installer l'App</button>
   <div class="cover-content">
     <img class="avatar" src="charo-192.png" alt="DIABLO">
     <div class="cover-text"><h1>jiska <span>JSK</span></h1><p>CHARO JSK • OFFICIAL</p></div>
@@ -164,10 +166,37 @@ function toggleMenu(id){let drop=document.getElementById(`drop-${id}`);let isSho
 function setSpeed(id, speed){let audio=document.getElementById(`aud-${id}`);if(audio){audio.playbackRate=speed; audio.play();}document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('show'));}
 function downloadFile(url){let a=document.createElement('a'); a.href=url; a.download=''; a.target='_blank'; document.body.appendChild(a); a.click(); a.remove();document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('show'));}
 document.addEventListener('click',function(e){if(!e.target.closest('.menu-dot')){document.querySelectorAll('.dropdown').forEach(d=>d.classList.remove('show'));}});
-let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
-function installApp(){if(deferredPrompt){deferredPrompt.prompt();}else{alert("Installe depuis le navigateur");}}
+
+// PWA INSTALL LOGIC CORRIGÉ
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  installBtn.classList.add('show');
+});
+function installApp(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice=>{
+      if(choice.outcome==='accepted'){
+        installBtn.classList.remove('show');
+        gtag('event', 'pwa_install', { 'method': 'button' });
+      }
+      deferredPrompt=null;
+    });
+  } else {
+    // Si déjà installé ou sur iPhone
+    alert("Pour installer:\nSur Android: Menu Chrome ⋮ > Installer l'application\nSur iPhone: Partager > Sur l'écran d'accueil");
+  }
+}
+window.addEventListener('appinstalled', ()=>{
+  installBtn.classList.remove('show');
+  console.log('JSK Music installée!');
+});
+
 fetchData();
 </script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}</script>
 </body>
-</html>
+  </html>
